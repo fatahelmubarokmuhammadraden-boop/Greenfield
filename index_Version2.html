@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Evaluasi Risiko Pertanian</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 950px;
+      margin: 32px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px #0002;
+      padding: 40px 30px 30px 30px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #32437a;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0 10px 0;
+      font-size: 15px;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background: #eaf0fc;
+    }
+    .tabel-caption {
+      font-weight: bold;
+      text-align: center;
+      margin-top: 4px;
+      margin-bottom: 24px;
+      font-size: 15px;
+      font-style: italic;
+    }
+    .risk-table {
+      margin-bottom:40px;
+    }
+    #chart-container {
+      width: 100%;
+      min-height: 390px;
+      margin-top: 36px;
+    }
+    .risk-legend {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 10px 4px; }
+      table, th, td { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Evaluasi Risiko Pertanian</h1>
+    <h2>Daftar Risiko Pertanian</h2>
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th>Kode</th>
+          <th>Risiko</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>R01</td><td>Fluktuasi harga komoditas</td></tr>
+        <tr><td>R02</td><td>Perubahan preferensi konsumen</td></tr>
+        <tr><td>R03</td><td>Keterbatasan akses pasar</td></tr>
+        <tr><td>R04</td><td>Kompetisi dengan produk impor</td></tr>
+        <tr><td>R05</td><td>Keterbatasan akses modal</td></tr>
+        <tr><td>R06</td><td>Beban utang tinggi</td></tr>
+        <tr><td>R07</td><td>Kegagalan infrastruktur irigasi</td></tr>
+        <tr><td>R08</td><td>Kurangnya tenaga kerja terampil</td></tr>
+      </tbody>
+    </table>
+    <div class="tabel-caption">Tabel 1. Daftar Risiko Pertanian</div>
+
+    <h2>Kriteria Penilaian Likelihood</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nilai</th>
+          <th>Kriteria</th>
+          <th>Deskripsi</th>
+          <th>Frekuensi Kejadian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><em>Rare</em></td>
+          <td>Risiko sangat sering terjadi</td>
+          <td>&gt;2 tahun</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><em>Unlikely</em></td>
+          <td>Risiko jarang terjadi</td>
+          <td>1 &ndash; 2 tahun</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><em>Possible</em></td>
+          <td>Risiko cukup sering terjadi</td>
+          <td>7 &ndash; 12 bulan</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><em>Likely</em></td>
+          <td>Risiko sering terjadi</td>
+          <td>4 &ndash; 6 bulan</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><em>Certain</em></td>
+          <td>Risiko selalu terjadi</td>
+          <td>1 &ndash; 6 bulan</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tabel-caption">Tabel 2. Kriteria penilaian Likelihood</div>
+
+    <h2>Kriteria Penilaian Impact</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nilai</th>
+          <th>Kriteria</th>
+          <th>Deskripsi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><em>Insignificant</em></td>
+          <td>Risiko tidak mengganggu aktivitas dan proses bisnis pada instansi</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><em>Minor</em></td>
+          <td>Aktivitas pada instansi sedikit terhambat, namun tidak mengganggu aktivitas inti pada instansi</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><em>Moderate</em></td>
+          <td>Risiko tersebut mengganggu jalannya proses bisnis pada instansi, sehingga aktivitas bisnis sedikit terhambat</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><em>Major</em></td>
+          <td>Risiko tersebut menghambat hampir seluruh jalannya proses bisnis pada instansi</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><em>Catastropic</em></td>
+          <td>Risiko mengganggu jalannya proses bisnis yang ada secara menyeluruh dan menghentikan aktivitas instansi secara total</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tabel-caption">Tabel 3. Kriteria penilaian Impact</div>
+
+    <h2>Grafik Evaluasi Risiko</h2>
+    <div class="risk-legend">
+      <b>Penjelasan Grafik:</b><br>
+      Sumbu-X: Kode Risiko, Sumbu-Y: Skor Risiko (contoh: Likelihood × Impact)<br>
+      Hover pada bar untuk detail nama risiko.
+    </div>
+    <div id="chart-container">
+      <canvas id="riskChart"></canvas>
+    </div>
+  </div>
+  <script>
+    // Data risiko & contoh penilaian Likelihood dan Impact (edit sesuai kebutuhan)
+    const labels = ["R01","R02","R03","R04","R05","R06","R07","R08"];
+    const risks = [
+      "Fluktuasi harga komoditas",
+      "Perubahan preferensi konsumen",
+      "Keterbatasan akses pasar",
+      "Kompetisi dengan produk impor",
+      "Keterbatasan akses modal",
+      "Beban utang tinggi",
+      "Kegagalan infrastruktur irigasi",
+      "Kurangnya tenaga kerja terampil"
+    ];
+    // Contoh Likelihood & Impact skor (1-5)
+    const likelihood = [5, 3, 4, 4, 5, 4, 3, 3];
+    const impact =    [4, 3, 3, 2, 3, 4, 5, 3];
+    // Skor risiko = Likelihood x Impact
+    const scores = likelihood.map((l,i) => l * impact[i]);
+
+    new Chart(document.getElementById("riskChart"), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Skor Risiko (Likelihood × Impact)',
+          data: scores,
+          backgroundColor: 'rgba(54, 162, 235, 0.85)'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            min: 0,
+            max: 25,
+            title: { display: true, text: "Skor Risiko" },
+            ticks: { stepSize: 5 }
+          }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              title: function(context) {
+                const idx = context[0].dataIndex;
+                return labels[idx] + ' - ' + risks[idx];
+              },
+              label: function(context) {
+                const idx = context.dataIndex;
+                return 'Likelihood: ' + likelihood[idx] + ', Impact: ' + impact[idx] + ' ⇒ Skor: ' + context.parsed.y;
+              }
+            }
+          },
+          legend: { display: false }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
